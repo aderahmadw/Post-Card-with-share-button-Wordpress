@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name: My Custom Elementor Widget
+ * Plugin Name: Test Plugin - Elementor
  * Description: A custom Elementor widget that displays "Hello World"
  * Version: 1.0
- * Author: Your Name
- * Author URI: https://wpmkr.com
+ * Author: Rahmad
+ * Author URI: https://www.google.com
  */
 
 // Exit if accessed directly

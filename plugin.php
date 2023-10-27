@@ -14,6 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function register_custom_widget() {
     require_once plugin_dir_path( __FILE__ ) . 'widget.php';
-    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new My_Custom_Widget() );
+    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new C_Post_List() );
 }
 add_action( 'elementor/widgets/widgets_registered', 'register_custom_widget' );

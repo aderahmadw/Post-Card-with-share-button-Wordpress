@@ -5,18 +5,18 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class C_Post_List extends \Elementor\Widget_Base
+class C_Post_List_Related extends \Elementor\Widget_Base
 {
 
     // Your widget's name, title, icon and category
     public function get_name()
     {
-        return 'C_Post_List';
+        return 'C_Post_List_Related';
     }
 
     public function get_title()
     {
-        return esc_html__('C Post List', 'c-post-list');
+        return esc_html__('C Post List Related', 'c-post-list-related-related');
     }
 
     public function get_icon()
@@ -33,7 +33,7 @@ class C_Post_List extends \Elementor\Widget_Base
     {
         $categories = get_categories();
 
-        $options = ['' => __('All', 'c-post-list')]; // Include an option to display all posts
+        $options = ['' => __('All', 'c-post-list-related')]; // Include an option to display all posts
 
         foreach ($categories as $category) {
             $options[$category->term_id] = $category->name;
@@ -50,7 +50,7 @@ class C_Post_List extends \Elementor\Widget_Base
         $this->start_controls_section(
             'section_content',
             [
-                'label' => __('Content', 'c-post-list'),
+                'label' => __('Content', 'c-post-list-related'),
             ]
         );
 
@@ -58,7 +58,7 @@ class C_Post_List extends \Elementor\Widget_Base
         $this->add_control(
             'posts_to_display',
             [
-                'label' => __('Number of Posts to Display', 'c-post-list'),
+                'label' => __('Number of Posts to Display', 'c-post-list-related'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 0,
                 // Display all posts by default
@@ -71,10 +71,10 @@ class C_Post_List extends \Elementor\Widget_Base
         $this->add_control(
             'enable_filtering',
             [
-                'label' => __('Enable Filtering', 'c-post-list'),
+                'label' => __('Enable Filtering', 'c-post-list-related'),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Yes', 'c-post-list'),
-                'label_off' => __('No', 'c-post-list'),
+                'label_on' => __('Yes', 'c-post-list-related'),
+                'label_off' => __('No', 'c-post-list-related'),
                 'default' => 'yes',
                 // Enable filtering by default
             ]
@@ -84,7 +84,7 @@ class C_Post_List extends \Elementor\Widget_Base
         $this->add_control(
             'post_filter',
             [
-                'label' => __('Filter by Category hehehe', 'c-post-list'),
+                'label' => __('Filter by Category hehehe', 'c-post-list-related'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => $this->get_categories_for_select(),
                 // Define this function to get category options
@@ -94,7 +94,7 @@ class C_Post_List extends \Elementor\Widget_Base
         $this->add_control(
             'post_offset',
             [
-                'label' => __('Post Offset xixixi', 'c-post-list'),
+                'label' => __('Post Offset xixixi', 'c-post-list-related'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 0,
                 // Default offset is 0 (no offset)
@@ -102,6 +102,19 @@ class C_Post_List extends \Elementor\Widget_Base
                 'step' => 1,
             ]
         );
+
+        $this->add_control(
+            'enable_related_posts',
+            [
+                'label' => __('Enable Related Posts', 'c-post-list-related'),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'default' => 'no',
+                // Disable related posts by default
+                'label_on' => __('Yes', 'c-post-list-related'),
+                'label_off' => __('No', 'c-post-list-related'),
+            ]
+        );
+
 
         // End the controls section
         $this->end_controls_section();
@@ -126,6 +139,7 @@ class C_Post_List extends \Elementor\Widget_Base
         $offset = $settings['post_offset'];
         $post_filter = $settings['post_filter'];
         $enable_filtering = $settings['enable_filtering'];
+        $enable_related_posts = $settings['enable_related_posts'];
 
         // Define your custom query parameters
         $query_args = array(

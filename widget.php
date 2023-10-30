@@ -160,20 +160,21 @@ class C_Post_List extends \Elementor\Widget_Base
                 }
 
                 .cr-post-filter {
-                    padding: 1rem;
+                    padding: .6rem 1rem;
+                    cursor: pointer;
+                    background-color: #ddd;
                 }
 
                 .cr-post-filter.active {
                     background-color: #333;
                     color: #fff;
-                    /* Add any other styling you want for active tabs */
                 }
 
                 .cr-post-body {
                     display: flex;
                     flex-wrap: wrap;
                     justify-content: center;
-                    align-items: center;
+                    align-items: start;
                 }
 
                 .cr-post-card {
@@ -183,7 +184,7 @@ class C_Post_List extends \Elementor\Widget_Base
                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                     margin: 10px;
                     max-width: 340px;
-                    min-height: 450px;
+                    min-height: 470px;
                     display: flex;
                     justify-content: space-between;
                     align-items: flex-start;
@@ -230,8 +231,9 @@ class C_Post_List extends \Elementor\Widget_Base
 
                 .cr-post-title h3 {
                     font-size: 1.5rem;
-                    margin: 10px 0;
+                    margin: 20px 0 10px;
                     padding: 0;
+                    line-height: 28px;
                 }
 
                 .cr-post-title h3 a {
@@ -251,7 +253,7 @@ class C_Post_List extends \Elementor\Widget_Base
 
                 .cr-post-meta span {
                     font-size: 0.9rem;
-                    color: #000;
+                    color: #888;
                 }
 
                 .cr-post-button span {
@@ -260,7 +262,7 @@ class C_Post_List extends \Elementor\Widget_Base
                     border: none;
                     padding: 5px 10px;
                     border-radius: 10px;
-                    margin-top: 10px;
+                    margin-top: 15px;
                     cursor: pointer;
                     display: inline-block;
                 }
@@ -296,7 +298,7 @@ class C_Post_List extends \Elementor\Widget_Base
                     margin-right: 10px;
                     font-size: 1.6rem;
                     transition: .5s;
-                    color: #000;
+                    color: #888;
                 }
 
                 .cr-share-btn-wrapper a:hover {
@@ -397,6 +399,11 @@ class C_Post_List extends \Elementor\Widget_Base
                                         <a href="https://twitter.com/share?url=<?php echo esc_url(the_permalink()); ?>&text=<?php echo esc_html(get_the_title()); ?>"
                                             target="_blank">
                                             <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <!-- Linkedin share button -->
+                                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo esc_url(the_permalink()); ?>&text=<?php echo esc_html(get_the_title()); ?>"
+                                            target="_blank">
+                                            <i class="fab fa-linkedin"></i>
                                         </a>
                                         <!-- Add more share buttons for other platforms as needed -->
                                     </div>

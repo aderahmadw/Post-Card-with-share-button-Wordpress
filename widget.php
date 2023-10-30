@@ -177,9 +177,9 @@ class C_Post_List extends \Elementor\Widget_Base
                 }
 
                 .cr-post-card {
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    padding: 10px;
+                    background-color: #fff;
+                    border-radius: 20px;
+                    padding: 5px;
                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                     margin: 10px;
                     max-width: 340px;
@@ -193,6 +193,7 @@ class C_Post_List extends \Elementor\Widget_Base
                 .cr-post-feature-img img {
                     max-width: 100%;
                     height: auto;
+                    border-radius: 20px;
                 }
 
                 .cr-post-title h3 {
@@ -275,6 +276,9 @@ class C_Post_List extends \Elementor\Widget_Base
                 .cr-share-btn-wrapper a:hover {
                     text-decoration: none;
                 }
+                .cr-post-content-wrapper{
+                    padding:20px;
+                }
             </style>
             <div class="cr-post-header">
                 <?php
@@ -328,43 +332,45 @@ class C_Post_List extends \Elementor\Widget_Base
                                     <img src="<?php echo esc_url($post_image); ?>" alt="Post Image">
                                 </a>
                             </div>
-                            <div class="cr-post-title">
-                                <h3>
-                                    <a href="<?php the_permalink(); ?>">
-                                        <?php echo esc_html($post_title); ?>
-                                    </a>
-                                </h3>
-                            </div>
-                            <div class="cr-post-meta">
-                                <span>
-                                    <?php echo esc_html($post_author); ?> |
-                                    <?php echo esc_html($post_date); ?>
-                                </span>
-                            </div>
-                            <a class="cr-post-button" href="<?php the_permalink(); ?>">
-                                <span>
-                                    <i aria-hidden="true" class="fas fa-play"></i> WATCH NOW
-                                </span>
-                            </a>
-                            <div class="cr-social-share">
-                                <p>Share to</p>
-                                <div class="cr-share-btn-wrapper">
-                                    <!-- WhatsApp share button -->
-                                    <a href="https://api.whatsapp.com/send?text=<?php echo esc_url(the_permalink()); ?>"
-                                        target="_blank">
-                                        <i class="fab fa-whatsapp"></i>
-                                    </a>
-                                    <!-- Facebook share button -->
-                                    <a href="https://www.facebook.com/sharer.php?u=<?php echo esc_url(the_permalink()); ?>"
-                                        target="_blank">
-                                        <i class="fab fa-facebook"></i>
-                                    </a>
-                                    <!-- Twitter share button -->
-                                    <a href="https://twitter.com/share?url=<?php echo esc_url(the_permalink()); ?>&text=<?php echo esc_html(get_the_title()); ?>"
-                                        target="_blank">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                    <!-- Add more share buttons for other platforms as needed -->
+                            <div class="cr-post-content-wrapper">
+                                <div class="cr-post-title">
+                                    <h3>
+                                        <a href="<?php the_permalink(); ?>">
+                                            <?php echo esc_html($post_title); ?>
+                                        </a>
+                                    </h3>
+                                </div>
+                                <div class="cr-post-meta">
+                                    <span>
+                                        <?php echo esc_html($post_author); ?> |
+                                        <?php echo esc_html($post_date); ?>
+                                    </span>
+                                </div>
+                                <a class="cr-post-button" href="<?php the_permalink(); ?>">
+                                    <span>
+                                        <i aria-hidden="true" class="fas fa-play"></i> WATCH NOW
+                                    </span>
+                                </a>
+                                <div class="cr-social-share">
+                                    <p>Share to</p>
+                                    <div class="cr-share-btn-wrapper">
+                                        <!-- WhatsApp share button -->
+                                        <a href="https://api.whatsapp.com/send?text=<?php echo esc_url(the_permalink()); ?>"
+                                            target="_blank">
+                                            <i class="fab fa-whatsapp"></i>
+                                        </a>
+                                        <!-- Facebook share button -->
+                                        <a href="https://www.facebook.com/sharer.php?u=<?php echo esc_url(the_permalink()); ?>"
+                                            target="_blank">
+                                            <i class="fab fa-facebook"></i>
+                                        </a>
+                                        <!-- Twitter share button -->
+                                        <a href="https://twitter.com/share?url=<?php echo esc_url(the_permalink()); ?>&text=<?php echo esc_html(get_the_title()); ?>"
+                                            target="_blank">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <!-- Add more share buttons for other platforms as needed -->
+                                    </div>
                                 </div>
                             </div>
                         </div>

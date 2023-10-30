@@ -190,14 +190,46 @@ class C_Post_List extends \Elementor\Widget_Base
                     flex-direction: column;
                 }
 
-                .cr-post-feature-img img {
-                    max-width: 100%;
-                    height: auto;
+                .cr-post-feature-img {
+                    position: relative;
+                    min-height: 12.5rem;
+                    width: 100%;
+                    background-color: #333;
+                    overflow: hidden;
                     border-radius: 20px;
                 }
 
+                .cr-post-feature-img a {}
+
+                .cr-post-feature-img:after {
+                    background-image: url("data:image/svg+xml,<svg width='50' height='50' viewBox='0 0 50 50' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50ZM37.6871 23.2519C37.3614 22.711 36.8943 22.2687 36.3359 21.9724L21.4405 13.8888C19.042 12.5883 16.0959 14.2809 16.0959 16.9607V33.1267C16.0959 35.8042 19.042 37.498 21.4405 36.1963L36.3359 28.1139C36.8943 27.8176 37.3614 27.3753 37.6871 26.8343C38.0129 26.2934 38.1849 25.6742 38.1849 25.0431C38.1849 24.4121 38.0129 23.7929 37.6871 23.2519Z' fill='white'/></svg>");
+                    background-repeat: no-repeat;
+                    content: "";
+                    display: inline-block;
+                    height: 50px;
+                    position: absolute;
+                    vertical-align: -0.125em;
+                    width: 50px;
+                    left: 50%;
+                    top: 80px;
+                    transform: translate(-50%, -20%);
+                }
+
+                .cr-post-img {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .cr-post-img img {
+                    max-width: 100%;
+                    height: auto;
+                    object-fit: cover;
+                }
+
                 .cr-post-title h3 {
-                    font-size: 1.2rem;
+                    font-size: 1.5rem;
                     font-weight: bold;
                     margin-top: 10px;
                 }
@@ -221,6 +253,7 @@ class C_Post_List extends \Elementor\Widget_Base
                     cursor: pointer;
                     display: inline-block;
                 }
+
                 .cr-post-button span {
                     box-shadow: inset -400px 0 0 0 #d81818;
                     -webkit-transition: ease-out .7s;
@@ -240,25 +273,6 @@ class C_Post_List extends \Elementor\Widget_Base
                     border: 1px solid #d81818;
                 }
 
-                .cr-post-feature-img {
-                    position: relative;
-                }
-
-                .cr-post-feature-img a:after {
-                    background-image: url("data:image/svg+xml,<svg width='50' height='50' viewBox='0 0 50 50' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50ZM37.6871 23.2519C37.3614 22.711 36.8943 22.2687 36.3359 21.9724L21.4405 13.8888C19.042 12.5883 16.0959 14.2809 16.0959 16.9607V33.1267C16.0959 35.8042 19.042 37.498 21.4405 36.1963L36.3359 28.1139C36.8943 27.8176 37.3614 27.3753 37.6871 26.8343C38.0129 26.2934 38.1849 25.6742 38.1849 25.0431C38.1849 24.4121 38.0129 23.7929 37.6871 23.2519Z' fill='white'/></svg>");
-
-                    background-repeat: no-repeat;
-                    content: "";
-                    display: inline-block;
-                    height: 50px;
-                    position: absolute;
-                    vertical-align: -0.125em;
-                    width: 50px;
-                    left: 50%;
-                    top: 80px;
-                    transform: translate(-50%, -20%);
-                }
-
                 .cr-social-share p {
                     font-size: 1.2rem;
                     font-weight: 800;
@@ -276,8 +290,9 @@ class C_Post_List extends \Elementor\Widget_Base
                 .cr-share-btn-wrapper a:hover {
                     text-decoration: none;
                 }
-                .cr-post-content-wrapper{
-                    padding:20px;
+
+                .cr-post-content-wrapper {
+                    padding: 20px;
                 }
             </style>
             <div class="cr-post-header">
@@ -327,11 +342,11 @@ class C_Post_List extends \Elementor\Widget_Base
                         ?>
                         <div class="cr-post-card <?php echo esc_attr($categories_string); ?>"
                             data-category="<?php echo esc_attr($categories_string); ?>">
-                            <div class="cr-post-feature-img">
-                                <a href="<?php the_permalink(); ?>">
+                            <a class="cr-post-feature-img" href="<?php the_permalink(); ?>">
+                                <div class="cr-post-img">
                                     <img src="<?php echo esc_url($post_image); ?>" alt="Post Image">
-                                </a>
-                            </div>
+                                </div>
+                            </a>
                             <div class="cr-post-content-wrapper">
                                 <div class="cr-post-title">
                                     <h3>

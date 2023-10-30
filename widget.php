@@ -60,9 +60,9 @@ class C_Post_List extends \Elementor\Widget_Base
             [
                 'label' => __('Number of Posts to Display', 'c-post-list'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
-                'default' => 0,
+                'default' => -1,
                 // Display all posts by default
-                'min' => 0,
+                'min' => -1,
                 // Minimum value, 0 means display all
                 'step' => 1,
             ]
@@ -79,6 +79,21 @@ class C_Post_List extends \Elementor\Widget_Base
                 // Enable filtering by default
             ]
         );
+        // Add control to filter the categories
+        $this->add_control(
+            'selected_categories',
+            [
+                'label' => __('Selected Categories', 'c-post-list'),
+                'type' => \Elementor\Controls_Manager::SELECT2,
+                'options' => $this->get_categories_for_select(),
+                'label_block' => true,
+                'multiple' => true,
+                // Allow multiple selections
+                'default' => [],
+                // Default is an empty array
+            ]
+        );
+
 
         // Add a control for filter category
         $this->add_control(
@@ -90,6 +105,7 @@ class C_Post_List extends \Elementor\Widget_Base
                 // Define this function to get category options
             ]
         );
+
         // post offset control
         $this->add_control(
             'post_offset',
@@ -126,6 +142,7 @@ class C_Post_List extends \Elementor\Widget_Base
         $offset = $settings['post_offset'];
         $post_filter = $settings['post_filter'];
         $enable_filtering = $settings['enable_filtering'];
+        $selected_categories = $settings['selected_categories'];
 
         // Define your custom query parameters
         $query_args = array(
@@ -220,12 +237,12 @@ class C_Post_List extends \Elementor\Widget_Base
                 .cr-post-img {
                     position: relative;
                     width: 100%;
-                    height: 100%;
+                    height: 12.5rem;
                 }
 
                 .cr-post-img img {
                     max-width: 100%;
-                    height: 12.5rem;
+                    height: 100%;
                     object-fit: cover;
                 }
 
@@ -312,17 +329,18 @@ class C_Post_List extends \Elementor\Widget_Base
             <div class="cr-post-header">
                 <?php
                 if ('yes' === $enable_filtering) {
-                    // Render the filtering code here
-                    // This is where your category filter code, including the filter wrapper, should go
-                    // The code for the filter control you provided earlier
+                    // Render the filtering code here, but only for selected categories
                     ?>
                     <div class="cr-post-filter-wrapper">
                         <div class="cr-post-filter active" data-category="all">All</div>
                         <?php
                         // Get the categories for generating filter options
                         $categories = get_categories();
+
                         foreach ($categories as $category) {
-                            echo '<div class="cr-post-filter" data-category="' . $category->slug . '">' . $category->name . '</div>';
+                            if (in_array($category->term_id, $selected_categories)) { // Check if the category ID is in the selected categories array
+                                echo '<div class="cr-post-filter" data-category="' . $category->slug . '">' . $category->name . '</div>';
+                            }
                         }
                         ?>
                     </div>

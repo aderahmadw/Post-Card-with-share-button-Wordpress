@@ -193,13 +193,14 @@ class C_Post_List extends \Elementor\Widget_Base
                 .cr-post-feature-img {
                     position: relative;
                     min-height: 12.5rem;
-                    width: 100%;
+                    width: 20.5rem;
                     background-color: #333;
                     overflow: hidden;
                     border-radius: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                 }
-
-                .cr-post-feature-img a {}
 
                 .cr-post-feature-img:after {
                     background-image: url("data:image/svg+xml,<svg width='50' height='50' viewBox='0 0 50 50' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50ZM37.6871 23.2519C37.3614 22.711 36.8943 22.2687 36.3359 21.9724L21.4405 13.8888C19.042 12.5883 16.0959 14.2809 16.0959 16.9607V33.1267C16.0959 35.8042 19.042 37.498 21.4405 36.1963L36.3359 28.1139C36.8943 27.8176 37.3614 27.3753 37.6871 26.8343C38.0129 26.2934 38.1849 25.6742 38.1849 25.0431C38.1849 24.4121 38.0129 23.7929 37.6871 23.2519Z' fill='white'/></svg>");
@@ -217,21 +218,31 @@ class C_Post_List extends \Elementor\Widget_Base
 
                 .cr-post-img {
                     position: relative;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    width: 100%;
+                    height: 100%;
                 }
 
                 .cr-post-img img {
                     max-width: 100%;
-                    height: auto;
+                    height: 12.5rem;
                     object-fit: cover;
                 }
 
                 .cr-post-title h3 {
                     font-size: 1.5rem;
+                    margin: 10px 0;
+                    padding: 0;
+                }
+
+                .cr-post-title h3 a {
                     font-weight: bold;
-                    margin-top: 10px;
+                    color: #000;
+                    transition: .2s;
+                }
+
+                .cr-post-title h3 a:hover {
+                    font-weight: 800;
+                    text-decoration: none;
                 }
 
                 .cr-post-title h3:after {
@@ -240,15 +251,15 @@ class C_Post_List extends \Elementor\Widget_Base
 
                 .cr-post-meta span {
                     font-size: 0.9rem;
-                    color: #888;
+                    color: #000;
                 }
 
                 .cr-post-button span {
                     background-color: #333;
                     color: #fff;
                     border: none;
-                    padding: 10px 20px;
-                    border-radius: 5px;
+                    padding: 5px 10px;
+                    border-radius: 10px;
                     margin-top: 10px;
                     cursor: pointer;
                     display: inline-block;
@@ -277,14 +288,15 @@ class C_Post_List extends \Elementor\Widget_Base
                     font-size: 1.2rem;
                     font-weight: 800;
                     font-family: 'Bai Jamjuree';
-                    margin-top: 10px;
-                    margin-bottom: 5px;
+                    margin: 1rem 0;
+                    color: #000;
                 }
 
                 .cr-share-btn-wrapper a {
                     margin-right: 10px;
                     font-size: 1.6rem;
                     transition: .5s;
+                    color: #000;
                 }
 
                 .cr-share-btn-wrapper a:hover {
@@ -292,7 +304,7 @@ class C_Post_List extends \Elementor\Widget_Base
                 }
 
                 .cr-post-content-wrapper {
-                    padding: 20px;
+                    padding: 0 20px 20px;
                 }
             </style>
             <div class="cr-post-header">
@@ -357,7 +369,9 @@ class C_Post_List extends \Elementor\Widget_Base
                                 </div>
                                 <div class="cr-post-meta">
                                     <span>
+                                        <i aria-hidden="true" class="fa fa-user"></i>
                                         <?php echo esc_html($post_author); ?> |
+                                        <i aria-hidden="true" class="fa fa-calendar"></i>
                                         <?php echo esc_html($post_date); ?>
                                     </span>
                                 </div>

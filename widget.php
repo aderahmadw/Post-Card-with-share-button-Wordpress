@@ -201,6 +201,10 @@ class C_Post_List extends \Elementor\Widget_Base
                     margin-top: 10px;
                 }
 
+                .cr-post-title h3:after {
+                    content: none;
+                }
+
                 .cr-post-meta span {
                     font-size: 0.9rem;
                     color: #888;
@@ -216,14 +220,60 @@ class C_Post_List extends \Elementor\Widget_Base
                     cursor: pointer;
                     display: inline-block;
                 }
+                .cr-post-button span {
+                    box-shadow: inset -400px 0 0 0 #d81818;
+                    -webkit-transition: ease-out .7s;
+                    -moz-transition: ease-out .7s;
+                    transition: ease-out .7s;
+                    border: 1px solid #d81818 !important;
+                }
+
+                .cr-post-button {
+                    font-family: "Bai Jamjuree", Sans-serif;
+                }
+
+                .cr-post-button span:hover {
+                    background-color: transparent !important;
+                    box-shadow: inset 0 0 0 0 #d81818;
+                    color: #d81818 !important;
+                    border: 1px solid #d81818;
+                }
+
+                .cr-post-feature-img {
+                    position: relative;
+                }
+
+                .cr-post-feature-img a:after {
+                    background-image: url("data:image/svg+xml,<svg width='50' height='50' viewBox='0 0 50 50' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50ZM37.6871 23.2519C37.3614 22.711 36.8943 22.2687 36.3359 21.9724L21.4405 13.8888C19.042 12.5883 16.0959 14.2809 16.0959 16.9607V33.1267C16.0959 35.8042 19.042 37.498 21.4405 36.1963L36.3359 28.1139C36.8943 27.8176 37.3614 27.3753 37.6871 26.8343C38.0129 26.2934 38.1849 25.6742 38.1849 25.0431C38.1849 24.4121 38.0129 23.7929 37.6871 23.2519Z' fill='white'/></svg>");
+
+                    background-repeat: no-repeat;
+                    content: "";
+                    display: inline-block;
+                    height: 50px;
+                    position: absolute;
+                    vertical-align: -0.125em;
+                    width: 50px;
+                    left: 50%;
+                    top: 80px;
+                    transform: translate(-50%, -20%);
+                }
 
                 .cr-social-share p {
+                    font-size: 1.2rem;
+                    font-weight: 800;
+                    font-family: 'Bai Jamjuree';
                     margin-top: 10px;
                     margin-bottom: 5px;
                 }
 
                 .cr-share-btn-wrapper a {
                     margin-right: 10px;
+                    font-size: 1.6rem;
+                    transition: .5s;
+                }
+
+                .cr-share-btn-wrapper a:hover {
+                    text-decoration: none;
                 }
             </style>
             <div class="cr-post-header">
@@ -274,11 +324,15 @@ class C_Post_List extends \Elementor\Widget_Base
                         <div class="cr-post-card <?php echo esc_attr($categories_string); ?>"
                             data-category="<?php echo esc_attr($categories_string); ?>">
                             <div class="cr-post-feature-img">
-                                <img src="<?php echo esc_url($post_image); ?>" alt="Post Image">
+                                <a href="<?php the_permalink(); ?>">
+                                    <img src="<?php echo esc_url($post_image); ?>" alt="Post Image">
+                                </a>
                             </div>
                             <div class="cr-post-title">
                                 <h3>
-                                    <?php echo esc_html($post_title); ?>
+                                    <a href="<?php the_permalink(); ?>">
+                                        <?php echo esc_html($post_title); ?>
+                                    </a>
                                 </h3>
                             </div>
                             <div class="cr-post-meta">
@@ -289,7 +343,7 @@ class C_Post_List extends \Elementor\Widget_Base
                             </div>
                             <a class="cr-post-button" href="<?php the_permalink(); ?>">
                                 <span>
-                                    Read More
+                                    <i aria-hidden="true" class="fas fa-play"></i> WATCH NOW
                                 </span>
                             </a>
                             <div class="cr-social-share">

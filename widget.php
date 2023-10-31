@@ -56,15 +56,22 @@ class C_Post_List extends \Elementor\Widget_Base
 
         // Add a control for the number of posts to display
         $this->add_control(
-            'posts_to_display',
+            'posts_per_page',
             [
-                'label' => __('Number of Posts to Display', 'c-post-list'),
+                'label' => __('Posts Per Page', 'c-post-list'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
-                'default' => -1,
-                // Display all posts by default
-                'min' => -1,
-                // Minimum value, 0 means display all
-                'step' => 1,
+                'default' => 10,
+                // Set a default number of posts per page
+            ]
+        );
+        // Add a control for the pagination
+        $this->add_control(
+            'current_page',
+            [
+                'label' => __('Current Page', 'c-post-list'),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'default' => 1,
+                // Set a default current page
             ]
         );
         // Add control displaying filter or not
@@ -107,17 +114,17 @@ class C_Post_List extends \Elementor\Widget_Base
         );
 
         // post offset control
-        $this->add_control(
-            'post_offset',
-            [
-                'label' => __('Post Offset xixixi', 'c-post-list'),
-                'type' => \Elementor\Controls_Manager::NUMBER,
-                'default' => 0,
-                // Default offset is 0 (no offset)
-                'min' => 0,
-                'step' => 1,
-            ]
-        );
+        // $this->add_control(
+        //     'post_offset',
+        //     [
+        //         'label' => __('Post Offset xixixi', 'c-post-list'),
+        //         'type' => \Elementor\Controls_Manager::NUMBER,
+        //         'default' => 0,
+        //         // Default offset is 0 (no offset)
+        //         'min' => 0,
+        //         'step' => 1,
+        //     ]
+        // );
 
         // End the controls section
         $this->end_controls_section();
@@ -138,18 +145,20 @@ class C_Post_List extends \Elementor\Widget_Base
         wp_enqueue_script('jquery');
 
         // Query setting
-        $posts_to_display = $settings['posts_to_display'];
-        $offset = $settings['post_offset'];
         $post_filter = $settings['post_filter'];
         $enable_filtering = $settings['enable_filtering'];
         $selected_categories = $settings['selected_categories'];
+        // Get pagination settings from widget settings
+        $posts_per_page = $settings['posts_per_page'];
+        $current_page = $settings['current_page'];
 
-        // Define your custom query parameters
+        // Define the custom query parameters
         $query_args = array(
             'post_type' => 'post',
-            'posts_per_page' => $posts_to_display,
+            'posts_per_page' => $posts_per_page,
             'order' => 'DESC',
-            'offset' => $offset,
+            'offset' => ($current_page - 1) * $posts_per_page,
+            // Calculate the offset
         );
 
         if (!empty($post_filter)) {
@@ -435,6 +444,31 @@ class C_Post_List extends \Elementor\Widget_Base
                     echo 'No posts found.';
                 }
                 ?>
+            </div>
+            <div class="cr-post-footer">
+                <div class="pagination">
+                    <?php
+                    // Calculate the total number of pages
+                    $total_pages = max(1, ceil($query->found_posts / $posts_per_page));
+
+                    // Generate the "Previous" link
+                    $prev_link = ($current_page > 1) ? get_pagenum_link($current_page - 1) : '';
+
+                    // Generate the "Next" link
+                    $next_link = ($current_page < $total_pages) ? get_pagenum_link($current_page + 1) : '';
+
+                    // Generate the numbered page links
+                    $page_links = '';
+                    for ($i = 1; $i <= $total_pages; $i++) {
+                        $page_links .= '<a href="' . get_pagenum_link($i) . '" class="' . (($i == $current_page) ? 'current' : '') . '">' . $i . '</a>';
+                    }
+                    ?>
+                    <a class="prev" href="<?php echo esc_url($prev_link); ?>">Previous</a>
+                    <a class="next" href="<?php echo esc_url($next_link); ?>">Next</a>
+                    <?php echo $page_links; ?>
+                    <?php
+                    ?>
+                </div>
             </div>
         </div>
         <script type="text/javascript">

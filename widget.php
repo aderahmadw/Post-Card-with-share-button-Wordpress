@@ -111,9 +111,6 @@ class C_Post_List extends \Elementor\Widget_Base
 
 
 
-
-
-
     // What your widget displays on the front-end
     protected function render()
     {

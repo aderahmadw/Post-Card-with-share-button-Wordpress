@@ -65,15 +65,15 @@ class C_Post_List extends \Elementor\Widget_Base
             ]
         );
         // Add a control for the pagination
-        $this->add_control(
-            'current_page',
-            [
-                'label' => __('Current Page', 'c-post-list'),
-                'type' => \Elementor\Controls_Manager::NUMBER,
-                'default' => 1,
-                // Set a default current page
-            ]
-        );
+        // $this->add_control(
+        //     'current_page',
+        //     [
+        //         'label' => __('Current Page', 'c-post-list'),
+        //         'type' => \Elementor\Controls_Manager::NUMBER,
+        //         'default' => 1,
+        //         // Set a default current page
+        //     ]
+        // );
         // Add control displaying filter or not
         $this->add_control(
             'enable_filtering',
@@ -150,14 +150,20 @@ class C_Post_List extends \Elementor\Widget_Base
         $selected_categories = $settings['selected_categories'];
         // Get pagination settings from widget settings
         $posts_per_page = $settings['posts_per_page'];
-        $current_page = $settings['current_page'];
+        // $current_page = $settings['current_page'];
+        // Get the current page number
+        $current_page = max(1, get_query_var('paged'));
+
+        // Calculate the offset based on the current page
+        $offset = ($current_page - 1) * $posts_per_page;
+
 
         // Define the custom query parameters
         $query_args = array(
             'post_type' => 'post',
             'posts_per_page' => $posts_per_page,
             'order' => 'DESC',
-            'offset' => ($current_page - 1) * $posts_per_page,
+            'offset' => $offset
             // Calculate the offset
         );
 
@@ -167,6 +173,19 @@ class C_Post_List extends \Elementor\Widget_Base
 
         // Perform the query
         $query = new WP_Query($query_args);
+
+        // Get the total number of pages
+        $total_pages = max(1, ceil($query->found_posts / $posts_per_page));
+
+        // Generate "Previous" and "Next" links
+        $prev_link = ($current_page > 1) ? get_pagenum_link($current_page - 1) : '';
+        $next_link = ($current_page < $total_pages) ? get_pagenum_link($current_page + 1) : '';
+
+        // Generate the numbered page links
+        $page_links = '';
+        for ($i = 1; $i <= $total_pages; $i++) {
+            $page_links .= '<a href="' . get_pagenum_link($i) . '" class="' . ($i == $current_page ? 'current' : '') . '">' . $i . '</a>';
+        }
 
         ?>
         <div class="cr-post-wrapper">
@@ -447,27 +466,9 @@ class C_Post_List extends \Elementor\Widget_Base
             </div>
             <div class="cr-post-footer">
                 <div class="pagination">
-                    <?php
-                    // Calculate the total number of pages
-                    $total_pages = max(1, ceil($query->found_posts / $posts_per_page));
-
-                    // Generate the "Previous" link
-                    $prev_link = ($current_page > 1) ? get_pagenum_link($current_page - 1) : '';
-
-                    // Generate the "Next" link
-                    $next_link = ($current_page < $total_pages) ? get_pagenum_link($current_page + 1) : '';
-
-                    // Generate the numbered page links
-                    $page_links = '';
-                    for ($i = 1; $i <= $total_pages; $i++) {
-                        $page_links .= '<a href="' . get_pagenum_link($i) . '" class="' . (($i == $current_page) ? 'current' : '') . '">' . $i . '</a>';
-                    }
-                    ?>
                     <a class="prev" href="<?php echo esc_url($prev_link); ?>">Previous</a>
                     <a class="next" href="<?php echo esc_url($next_link); ?>">Next</a>
                     <?php echo $page_links; ?>
-                    <?php
-                    ?>
                 </div>
             </div>
         </div>

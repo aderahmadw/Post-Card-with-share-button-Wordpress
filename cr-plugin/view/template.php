@@ -91,7 +91,7 @@
         <?php endif; ?>
     </div>
     <div class="cr-post-footer">
-        <div class="pagination">
+        <div class="cr-pagination">
             <?php if ($prev_link): ?>
                 <a class="prev" href="<?php echo esc_url($prev_link); ?>">Previous</a>
             <?php endif; ?>

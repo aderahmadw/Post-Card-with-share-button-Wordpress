@@ -161,7 +161,7 @@ class C_Post_List extends \Elementor\Widget_Base
         // Generate the numbered page links
         $page_links = '';
         for ($i = 1; $i <= $total_pages; $i++) {
-            $page_links .= '<a href="' . get_pagenum_link($i) . '" class="' . ($i == $current_page ? 'current' : '') . '">' . $i . '</a>';
+            $page_links .= '<a class="nomber" href="' . get_pagenum_link($i) . '" class="' . ($i == $current_page ? 'current' : '') . '">' . $i . '</a>';
         }
 
         // Load the template

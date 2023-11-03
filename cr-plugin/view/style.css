@@ -78,7 +78,7 @@
 
 .cr-post-img img {
   max-width: 100%;
-  height: 100%;
+  height: 100% !important;
   object-fit: cover;
 }
 
@@ -160,4 +160,17 @@
 
 .cr-post-content-wrapper {
   padding: 0 20px 20px;
+}
+
+.cr-post-footer {
+  margin-top: 1rem;
+}
+.cr-post-footer .cr-pagination {
+  display: flex;
+  gap: 1rem;
+}
+.cr-post-footer .cr-pagination a {
+  background: #d81818;
+  padding: 0.2rem 0.8rem;
+  color: white;
 }

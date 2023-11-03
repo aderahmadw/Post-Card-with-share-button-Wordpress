@@ -42,8 +42,11 @@ jQuery(document).ready(function ($) {
             success: function (response) {
                 // Handle the response and replace the posts in your widget
                 // You can update the widget content with the new posts here
-                // Example: $('.cr-post-body').html(response);
-            }
+                $('.cr-post-body').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.log('AJAX Error: ' + error);
+            }            
         });
     });
 });
